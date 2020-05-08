@@ -56,8 +56,20 @@ router.put('/:id', (req, res) => {
     .catch(error => {
       res.status(500).json({ errorMessage: `Error retrieving and updating project with id ${id}.` });
     });
-})
+});
 
+// Remove project by id
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  projectDB.remove(id)
+    .then(success => {
+      console.log(success)
+      res.status(204).json(success);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
 
 // TODO middleware here
 
