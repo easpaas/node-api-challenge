@@ -16,19 +16,19 @@ router.get('/', (req, res) => {
     });
 });
 
-// // Return project by id
-// router.get('/:id', validateProjectId, (req,res) => {
-//   const id = req.params.id;
-//   projectDB.get(id)
-//     .then(project => {
-//       console.log(project);
-//       res.status(200).json(project);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//       res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
-//     });
-// });
+// Return action by id
+router.get('/:id', (req,res) => {
+  const id = req.params.id;
+  actionDB.get(id)
+    .then(action => {
+      console.log(action);
+      res.status(200).json(action);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
+    });
+});
 
 // // Return project actions by project id
 // router.get('/:id/projects', validateProjectId, (req,res) => {
