@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    Express router and Express middleware.
+
 - [ ] Describe Middleware?
+
+    Middleware can make changes to the request and the response objects, end the request-response cycle and call the next middleware in the stack.
 
 - [ ] Describe a Resource?
 
+    Express
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    APIs should return the correct HTTP status code to help clients know if a request was successful. For example, success would be a 200 status code. 
+
 - [ ] How can we partition our application into sub-applications?
+
+    REST. 
 
 ## Minimum Viable Product
 
