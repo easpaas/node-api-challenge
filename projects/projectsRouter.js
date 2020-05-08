@@ -30,6 +30,20 @@ router.get('/:id', validateProjectId, (req,res) => {
     });
 });
 
+// Return project actions by project id
+router.get('/:id/projects', validateProjectId, (req,res) => {
+  const id = req.params.id;
+  projectDB.getProjectActions(id)
+    .then(project => {
+      console.log(project);
+      res.status(200).json(project);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
+    });
+});
+
 // Add new project 
 router.post('/', (req, res) => {
   const project = req.body;
@@ -72,20 +86,13 @@ router.delete('/:id', validateProjectId, (req, res) => {
 });
 
 // TODO middleware here
-function validateProjectId(req,res,next){
+function validateProjectId(req, res, next){
   const id = req.params.id;
-  if (id) {
-    projectDB.get(id)
-      .then(success => {
-        req.project = success;
-        next();
-      })
-      .catch(error => {
-        res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` })
-      })
-    } else {
-      res.status(404).json({ errorMessage: `Project id ${id} is not valid.` });
-    }
+  projectDB.get(id)
+    .then(success => {
+      req.project = success;
+      next();
+    })
 }
 
 module.exports = router;
