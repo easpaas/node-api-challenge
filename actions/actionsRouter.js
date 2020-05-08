@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
       errorMessage: 'please enter a valid project_id'
     })
   }
-  
+
   actionDB.insert(action)
     .then(action => {
       console.log(action)
@@ -52,19 +52,19 @@ router.post('/', (req, res) => {
     });
 });
 
-// // Edit existing project by id
-// router.put('/:id', validateProjectId, (req, res) => {
-//   const id = req.params.id;
-//   const changes = req.body;
-//   projectDB.update(id, changes)
-//     .then(update => {
-//       console.log(update)
-//       res.status(200).json(update)
-//     })
-//     .catch(error => {
-//       res.status(500).json({ errorMessage: `Error retrieving and updating project with id ${id}.` });
-//     });
-// });
+// Edit existing action by id
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  actionDB.update(id, changes)
+    .then(update => {
+      console.log(update)
+      res.status(200).json(update)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: `Error retrieving and updating project action with id ${id}.` });
+    });
+});
 
 // // Remove project by id
 // router.delete('/:id', validateProjectId, (req, res) => {
@@ -80,14 +80,14 @@ router.post('/', (req, res) => {
 // });
 
 
-// Middleware 
-function validateProjectId(req, res, next){
-  const id = req.params.id;
-  projectDB.get(id)
-    .then(success => {
-      req.project = success;
-      next();
-    })
-}
+// // Middleware 
+// function validateProjectId(req, res, next){
+//   const id = req.params.id;
+//   projectDB.get(id)
+//     .then(success => {
+//       req.project = success;
+//       next();
+//     })
+// }
 
 module.exports = router;
