@@ -66,18 +66,18 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// // Remove project by id
-// router.delete('/:id', validateProjectId, (req, res) => {
-//   const id = req.params.id;
-//   projectDB.remove(id)
-//     .then(success => {
-//       console.log(success)
-//       res.status(204).json(success);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// });
+// Remove project by id
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  actionDB.remove(id)
+    .then(success => {
+      console.log(success)
+      res.status(204).json(success);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
 
 
 // // Middleware 
