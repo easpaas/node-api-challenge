@@ -18,16 +18,17 @@ router.get('/', (req, res) => {
 
 // Return project by id
 router.get('/:id', validateProjectId, (req,res) => {
-  const id = req.params.id;
-  projectDB.get(id)
-    .then(project => {
-      console.log(project);
-      res.status(200).json(project);
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
-    });
+  // const id = req.params.id;
+  res.status(200).json(req.project);
+  // projectDB.get(id)
+  //   .then(project => {
+  //     console.log(project);
+  //     res.status(200).json(project);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //     res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
+  //   });
 });
 
 // Return project actions by project id
@@ -85,13 +86,20 @@ router.delete('/:id', validateProjectId, (req, res) => {
     });
 });
 
-// TODO middleware here
+// Middleware here
 function validateProjectId(req, res, next){
   const id = req.params.id;
   projectDB.get(id)
     .then(success => {
-      req.project = success;
-      next();
+      if (success) {
+        req.project = success;
+        next();
+      } else {
+        res.status(404).json({ errorMessage: `Not a valid id ${id}` })
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error.message)
     })
 }
 
