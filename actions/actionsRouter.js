@@ -30,33 +30,27 @@ router.get('/:id', (req,res) => {
     });
 });
 
-// // Return project actions by project id
-// router.get('/:id/projects', validateProjectId, (req,res) => {
-//   const id = req.params.id;
-//   projectDB.getProjectActions(id)
-//     .then(project => {
-//       console.log(project);
-//       res.status(200).json(project);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//       res.status(500).json({ errorMessage: `Error retrieving project id ${id}.` });
-//     });
-// });
-
-// // Add new project 
-// router.post('/', (req, res) => {
-//   const project = req.body;
-//   projectDB.insert(project)
-//     .then(project => {
-//       console.log(project)
-//       res.status(201).json(project);
-//     })
-//     .catch(error => {
-//       console.log(error)
-//       res.status(500).json({ errorMessage: `Error inserting new project.` });
-//     });
-// });
+// Add new action 
+router.post('/', (req, res) => {
+  const action = req.body;
+  const projectId = req.body.project_id;
+  
+  if(!projectId){
+    res.status(400).json({
+      errorMessage: 'please enter a valid project_id'
+    })
+  }
+  
+  actionDB.insert(action)
+    .then(action => {
+      console.log(action)
+      // res.status(201).json(action);
+    })
+    .catch(error => {
+      console.log(error)
+      res.status(500).json({ errorMessage: `Error inserting new action.` });
+    });
+});
 
 // // Edit existing project by id
 // router.put('/:id', validateProjectId, (req, res) => {
