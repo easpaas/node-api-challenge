@@ -36,13 +36,27 @@ router.post('/', (req, res) => {
   projectDB.insert(project)
     .then(project => {
       console.log(project)
-      res.status(200).json(project);
+      res.status(201).json(project);
     })
     .catch(error => {
       console.log(error)
       res.status(500).json({ errorMessage: `Error inserting new project.` });
     });
 });
+
+// Edit existing project by id
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const changes = req.body;
+  projectDB.update(id, changes)
+    .then(update => {
+      console.log(update)
+      res.status(200).json(update)
+    })
+    .catch(error => {
+      res.status(500).json({ errorMessage: `Error retrieving and updating project with id ${id}.` });
+    });
+})
 
 
 // TODO middleware here
