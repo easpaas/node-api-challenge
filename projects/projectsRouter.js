@@ -30,6 +30,21 @@ router.get('/:id', (req,res) => {
     });
 });
 
+// Add new project 
+router.post('/', (req, res) => {
+  const project = req.body;
+  projectDB.insert(project)
+    .then(project => {
+      console.log(project)
+      res.status(200).json(project);
+    })
+    .catch(error => {
+      console.log(error)
+      res.status(500).json({ errorMessage: `Error inserting new project.` });
+    });
+});
 
+
+// TODO middleware here
 
 module.exports = router;
